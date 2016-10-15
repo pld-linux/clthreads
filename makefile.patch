@@ -1,0 +1,21 @@
+diff -dur clthreads-2.4.0.orig/Makefile clthreads-2.4.0/Makefile
+--- clthreads-2.4.0.orig/Makefile	2008-03-22 22:48:25.000000000 +0100
++++ clthreads-2.4.0/Makefile	2016-10-15 12:37:50.436941322 +0200
+@@ -28,7 +28,7 @@
+ DISTDIR = clthreads-$(VERSION)
+ 
+ 
+-CPPFLAGS += -Wall -I. -fpic -D_REENTRANT -D_POSIX_PTHREAD_SEMANTICS -O2 
++CPPFLAGS += -Wall -I. -fpic -D_REENTRANT -D_POSIX_PTHREAD_SEMANTICS
+ LDLFAGS += 
+ LDLIBS +=
+ 
+@@ -42,7 +42,7 @@
+ 
+ 
+ $(CLTHREADS_MIN): $(CLTHREADS_O)
+-	g++ -shared $(LDFLAGS) -Wl,-soname,$(CLTHREADS_MAJ) -o $(CLTHREADS_MIN) $(CLTHREADS_O) $(CLTHREADS_DEP)
++	$(CXX) -shared $(LDFLAGS) -Wl,-soname,$(CLTHREADS_MAJ) -o $(CLTHREADS_MIN) $(CLTHREADS_O) $(CLTHREADS_DEP)
+ 
+ 
+ install:	$(CLTHREADS_MIN)

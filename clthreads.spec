@@ -6,6 +6,7 @@ License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://kokkinizita.linuxaudio.org/linuxaudio/downloads/%{name}-%{version}.tar.bz2
 # Source0-md5:	90b650f1f5c9f39f4d77f73aca3c53be
+Patch0:		makefile.patch
 URL:		http://kokkinizita.linuxaudio.org/linuxaudio/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -26,11 +27,13 @@ Pliki nagłówkowe biblioteki %{name}.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
-%{__make} \
-	CPPFLAGS="%{rpmcxxflags} %{rpmcppflags} -Wall -I. -fpic -D_REENTRANT -D_POSIX_PTHREAD_SEMANTICS" \
-	LDFLAGS="%{rpmldflags}"
+CXX="%{__cxx}" \
+CPPFLAGS="%{rpmcxxflags} %{rpmcppflags}" \
+LDFLAGS="%{rpmldflags}" \
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
