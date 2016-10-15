@@ -29,10 +29,8 @@ Pliki nagłówkowe biblioteki %{name}.
 
 %build
 %{__make} \
-	CXXFLAGS="%{rpmcxxflags}" \
-	CPPFLAGS="%{rpmcppflags}" \
-	LDFLAGS="%{rpmldflags}" \
-	LIBDIR="%{_lib}"
+	CPPFLAGS="%{rpmcxxflags} %{rpmcppflags} -Wall -I. -fpic -D_REENTRANT -D_POSIX_PTHREAD_SEMANTICS" \
+	LDFLAGS="%{rpmldflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -40,6 +38,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_includedir}
 
 %{__make} install \
+	LIBDIR="%{_lib}" \
 	PREFIX=$RPM_BUILD_ROOT%{_prefix}
 
 %clean
