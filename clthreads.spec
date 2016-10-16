@@ -8,6 +8,7 @@ Source0:	http://kokkinizita.linuxaudio.org/linuxaudio/downloads/%{name}-%{versio
 # Source0-md5:	90b650f1f5c9f39f4d77f73aca3c53be
 Patch0:		makefile.patch
 URL:		http://kokkinizita.linuxaudio.org/linuxaudio/
+BuildRequires:	libstdc++-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
