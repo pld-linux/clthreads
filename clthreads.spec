@@ -1,11 +1,13 @@
 Summary:	Kokkini Zita clthreads library
+Summary(pl.UTF-8):	Biblioteka Kokkini Zita clthreads
 Name:		clthreads
-Version:	2.4.0
+Version:	2.4.2
 Release:	1
-License:	LGPL v2.1
+# as specified in source files (included COPYING is LGPL v2.1)
+License:	GPL v2+
 Group:		Libraries
 Source0:	http://kokkinizita.linuxaudio.org/linuxaudio/downloads/%{name}-%{version}.tar.bz2
-# Source0-md5:	90b650f1f5c9f39f4d77f73aca3c53be
+# Source0-md5:	6c82e4edece2db2de9451b6afe702a86
 Patch0:		makefile.patch
 URL:		http://kokkinizita.linuxaudio.org/linuxaudio/
 BuildRequires:	libstdc++-devel
@@ -13,6 +15,9 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 clthreads library, used by Kokkini Zita Linux Audio projects.
+
+%description -l pl.UTF-8
+Biblioteka clthreads, używana przez projekty Kokkini Zita Linux Audio.
 
 %package devel
 Summary:	Header files for %{name} library
@@ -34,16 +39,16 @@ Pliki nagłówkowe biblioteki %{name}.
 CXX="%{__cxx}" \
 CPPFLAGS="%{rpmcxxflags} %{rpmcppflags}" \
 LDFLAGS="%{rpmldflags}" \
-%{__make}
+%{__make} -C source
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 install -d $RPM_BUILD_ROOT%{_includedir}
 
-%{__make} install \
-	LIBDIR="%{_lib}" \
-	PREFIX=$RPM_BUILD_ROOT%{_prefix}
+%{__make} -C source install \
+	DESTDIR=$RPM_BUILD_ROOT \
+	PREFIX=%{_prefix} \
+	LIBDIR=%{_libdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -54,10 +59,10 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS
-%attr(755,root,root) %{_libdir}/lib%{name}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/lib%{name}.so.2
+%attr(755,root,root) %{_libdir}/libclthreads.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libclthreads.so.2
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib%{name}.so
-%{_includedir}/%{name}.h
+%attr(755,root,root) %{_libdir}/libclthreads.so
+%{_includedir}/clthreads.h
